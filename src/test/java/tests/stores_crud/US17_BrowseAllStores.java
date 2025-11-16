@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 
 
 import java.util.List;
+import java.util.Map;
 
 import static base_url.BazaarStoresBaseUrl.adminSpec;
 import static base_url.BazaarStoresBaseUrl.spec;
@@ -14,6 +15,7 @@ import static org.hamcrest.Matchers.instanceOf;
 
 public class US17_BrowseAllStores {
 
+    public static String storeId;
     @Test
     public void getAllStores01(){
 
@@ -21,6 +23,10 @@ public class US17_BrowseAllStores {
         response.then().statusCode(200)
                 .body("", instanceOf(List.class));
 
+        List<Map<String, Object>> stores = response.jsonPath().getList("");
+        Map<String, Object> store = stores.get(0);
+
+         storeId = store.get("id").toString();
     }
 
     @Test
