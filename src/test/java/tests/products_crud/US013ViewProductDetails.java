@@ -90,15 +90,16 @@ public class US013ViewProductDetails extends BazaarStoresBaseUrl {
                 .body("message", Matchers.is("Unauthenticated."));
     }
 
-    private void SetProductIDInJsonFile() {
+    public void SetProductIDInJsonFile() {
+
         //Get products ids to make test independent and dynamic
+        Response res = given(spec).get("/products");
         try{
-            ObjectMapperUtils.writeJsonToFiles("products_data/productID", given(spec).get("/products"), "[0].id");
-            ObjectMapperUtils.writeJsonToFiles("products_data/productID", given(spec).get("/products"), "[1].id");
-            ObjectMapperUtils.writeJsonToFiles("products_data/productID", given(spec).get("/products"), "[2].id");
+            ObjectMapperUtils.writeJsonToFiles("products_data/productID",res, "[0].id", "id");
         }catch (Exception e){
             e.printStackTrace();
         }
+
     }
 
 }
