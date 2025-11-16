@@ -20,5 +20,7 @@ public class AddProductToCart extends BazaarStoresBaseUrl {
         //Send the request
         Response response = given(customerSpec()).body(payload).post("/cart/add");
         response.prettyPrint();
+
+
     }
 }
