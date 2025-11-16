@@ -27,7 +27,7 @@ public class US013ViewProductDetails extends BazaarStoresBaseUrl {
 
         JsonNode payload = ObjectMapperUtils.getJsonNode("/products_data/productID");
 
-        int id = payload.get("[0].id").asInt();
+        int id = payload.get("id").asInt();
         spec.pathParam("id",id);
 
         Response response = given(spec).get("/products/{id}");
@@ -74,7 +74,7 @@ public class US013ViewProductDetails extends BazaarStoresBaseUrl {
 
         JsonNode payload = ObjectMapperUtils.getJsonNode("/products_data/productID");
 
-        int id = payload.get("[0].id").asInt();
+        int id = payload.get("id").asInt();
 
         RequestSpecification sp = new RequestSpecBuilder()
                 .setBaseUri("https://bazaarstores.com/api")
