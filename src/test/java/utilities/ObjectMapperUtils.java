@@ -9,6 +9,8 @@ import io.restassured.response.Response;
 import java.io.File;
 import java.io.IOException;
 
+import static io.restassured.RestAssured.given;
+
 public class ObjectMapperUtils {
 
     //Reusable method to convert string json to java object
@@ -57,13 +59,13 @@ public class ObjectMapperUtils {
         objectNode.remove(fieldName);
     }
 
-    public static void writeJsonToFiles(String fileName, Response response, String fieldName) throws IOException {
+    public static void writeJsonToFiles(String fileName, Response response, String JsonPath, String fieldName) throws IOException {
         JsonNode jsonContent = ObjectMapperUtils.getJsonNode(fileName);
         ObjectNode content = (ObjectNode) jsonContent;
-        Object x = response.jsonPath().get(fieldName);
+        Object obj = response.jsonPath().get(JsonPath);
 
         ObjectMapper mapper = new ObjectMapper();
-        JsonNode fieldNode = mapper.valueToTree(x);
+        JsonNode fieldNode = mapper.valueToTree(obj);
         content.set(fieldName, fieldNode);
 
         mapper.writerWithDefaultPrettyPrinter().writeValue(new File("src/test/resources/test_data/" + fileName + ".json"), content);
