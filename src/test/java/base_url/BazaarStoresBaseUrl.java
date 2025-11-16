@@ -87,4 +87,12 @@ public class BazaarStoresBaseUrl {
                 .getString("authorisation.token");
     }
 
+    public static RequestSpecification spec() {
+        return new RequestSpecBuilder()
+                .setBaseUri(baseUrl)
+                .addHeader("Accept", "application/json")
+                .setContentType(ContentType.JSON)
+                .build();
+    }
+
 }
