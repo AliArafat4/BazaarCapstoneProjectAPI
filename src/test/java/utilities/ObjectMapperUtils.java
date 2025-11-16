@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import io.restassured.response.Response;
 
 import java.io.File;
 import java.io.IOException;
@@ -54,6 +55,18 @@ public class ObjectMapperUtils {
     public static void removeFieldJsonNode(JsonNode payload, String fieldName) {
         ObjectNode objectNode = (ObjectNode) payload;
         objectNode.remove(fieldName);
+    }
+
+    public static void writeJsonToFiles(String fileName, Response response, String fieldName) throws IOException {
+        JsonNode jsonContent = ObjectMapperUtils.getJsonNode(fileName);
+        ObjectNode content = (ObjectNode) jsonContent;
+        Object x = response.jsonPath().get(fieldName);
+
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode fieldNode = mapper.valueToTree(x);
+        content.set(fieldName, fieldNode);
+
+        mapper.writerWithDefaultPrettyPrinter().writeValue(new File("src/test/resources/test_data/" + fileName + ".json"), content);
     }
 
 
