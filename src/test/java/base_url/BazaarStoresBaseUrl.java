@@ -10,12 +10,10 @@ import static io.restassured.RestAssured.given;
 
 public class BazaarStoresBaseUrl {
 
-    protected RequestSpecification spec;
     private static String baseUrl = "https://bazaarstores.com/api";
 
-    @BeforeMethod//Before each test method, this will work and initialize the spec object.
-    public void setStoreManagerSpec() {
-        spec = new RequestSpecBuilder()
+    public static RequestSpecification StoreManagerSpec() {
+        return new RequestSpecBuilder()
                 .setBaseUri(baseUrl)
                 .addHeader("Accept", "application/json")
                 .addHeader("Authorization", "Bearer " + getStoreManagerToken())
@@ -23,7 +21,7 @@ public class BazaarStoresBaseUrl {
                 .build();
     }
 
-    String getStoreManagerToken() {
+    static String getStoreManagerToken() {
         String credentials = """
                 {
                     "email" : "storemanager@sda.com",
@@ -39,8 +37,8 @@ public class BazaarStoresBaseUrl {
                 .getString("authorisation.token");
     }
 
-    public void setAdminSpec() {
-        spec = new RequestSpecBuilder()
+    public static RequestSpecification adminSpec() {
+        return new RequestSpecBuilder()
                 .setBaseUri(baseUrl)
                 .addHeader("Accept", "application/json")
                 .addHeader("Authorization", "Bearer " + getAdminToken())
@@ -48,7 +46,7 @@ public class BazaarStoresBaseUrl {
                 .build();
     }
 
-    String getAdminToken() {
+    static String getAdminToken() {
         String credentials = """
                 {
                     "email" : "admin@sda.com",
@@ -64,8 +62,8 @@ public class BazaarStoresBaseUrl {
                 .getString("authorisation.token");
     }
 
-    public void setCustomerSpec() {
-        spec = new RequestSpecBuilder()
+    public static RequestSpecification customerSpec() {
+        return new RequestSpecBuilder()
                 .setBaseUri(baseUrl)
                 .addHeader("Accept", "application/json")
                 .addHeader("Authorization", "Bearer " + getCustomerToken())
@@ -73,7 +71,7 @@ public class BazaarStoresBaseUrl {
                 .build();
     }
 
-    String getCustomerToken() {
+    static String getCustomerToken() {
         String credentials = """
                 {
                     "email" : "customer@sda.com",

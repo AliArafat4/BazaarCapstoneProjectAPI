@@ -11,7 +11,7 @@ public class tttt extends BazaarStoresBaseUrl {
     @Test
     public void test1() {
         BazaarStoresBaseUrl bazaarStoresBaseUrl = new BazaarStoresBaseUrl();
-        bazaarStoresBaseUrl.setSpec();
+        bazaarStoresBaseUrl.setStoreManagerSpec();
 
         Response response = given(spec).get("/products");
         response.prettyPrint();
