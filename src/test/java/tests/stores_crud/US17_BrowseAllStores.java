@@ -16,6 +16,7 @@ import static org.hamcrest.Matchers.instanceOf;
 public class US17_BrowseAllStores {
 
     public static String storeId;
+    public static String adminId;
     @Test
     public void getAllStores01(){
 
@@ -27,6 +28,7 @@ public class US17_BrowseAllStores {
         Map<String, Object> store = stores.get(0);
 
          storeId = store.get("id").toString();
+         adminId = store.get("admin_id").toString();
     }
 
     @Test
