@@ -1,0 +1,61 @@
+{
+
+ "validData" : {
+        "name": "Default Name",
+        "email": "default@test.com",
+        "password": "P@ssw0rd!",
+        "password_confirmation": "P@ssw0rd!"
+      },
+
+  "missingName" : {
+    "email": "default@test.com",
+    "password": "P@ssw0rd!",
+    "password_confirmation": "P@ssw0rd!"
+  },
+
+  "missingEmail" : {
+    "name": "Default Name",
+    "password": "P@ssw0rd!",
+    "password_confirmation": "P@ssw0rd!"
+  },
+
+  "missingPassword" : {
+    "name": "Default Name",
+    "email": "default@test.com",
+    "password_confirmation": "P@ssw0rd!"
+  },
+
+  "missingPasswordConfirm" : {
+    "name": "Default Name",
+    "email": "default@test.com",
+    "password": "P@ssw0rd!"
+  },
+
+  "passwordMismatch" : {
+    "name": "Default Name",
+    "email": "default@test.com",
+    "password": "P@ssw0rd!1234",
+    "password_confirmation": "P@ssw0rd!"
+  },
+
+  "invalidEmail" : {
+    "name": "Default Name",
+    "email": "defaulttest.com",
+    "password": "P@ssw0rd!",
+    "password_confirmation": "P@ssw0rd!"
+  },
+
+  "duplicateEmail" : {
+    "name": "Default Name",
+    "email": "customer@sda.com",
+    "password": "P@ssw0rd!",
+    "password_confirmation": "P@ssw0rd!"
+  },
+
+  "shortPassword" : {
+    "name": "Default Name",
+    "email": "default@test.com",
+    "password": "Pass",
+    "password_confirmation": "Pass"
+  }
+}
