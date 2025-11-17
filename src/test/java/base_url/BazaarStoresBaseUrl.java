@@ -10,7 +10,7 @@ import static io.restassured.RestAssured.given;
 
 public class BazaarStoresBaseUrl {
 
-    private static String baseUrl = "https://bazaarstores.com/api";
+    public static String baseUrl = "https://bazaarstores.com/api";
 
     public static RequestSpecification StoreManagerSpec() {
         return new RequestSpecBuilder()

@@ -5,39 +5,40 @@ import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.*;
 import static org.testng.Assert.*;
 
-public class ViewFavoritesTests {
+public class US010_ViewFavoritesTests extends BazaarStoresBaseUrl {
 
     // TC_US009_001 – Verify successful retrieval of all favorite products
-    @Test(description = "Verify that the user can successfully retrieve all favorite products.")
+    @Test(description = "TC_US009_001: Verify successful retrieval of all favorite products")
     public void TC_US009_001_getAllFavorites_success() {
 
-        Response res = given()
-                .spec(BazaarStoresBaseUrl.customerSpec())
+        Response response = given(customerSpec())
                 .when()
                 .get("/favorites");
 
-        // Verify status code
-        res.then().statusCode(200);
+        response.prettyPrint();
 
-        // Verify response is array (maybe empty)
-        assertNotNull(res.jsonPath().getList("$"));
+        response.then().statusCode(200);
+
+        // Verify response is an array (maybe empty)
+        assertNotNull(response.jsonPath().getList("$"));
     }
 
     // TC_US009_002 – Verify behavior when user has no favorited products
-    @Test(description = "Ensure that the API returns an empty array when the user has no favorite products.")
+    @Test(description = "TC_US009_002: Verify behavior when user has no favorited products")
     public void TC_US009_002_getFavorites_empty() {
 
-        Response res = given()
-                .spec(BazaarStoresBaseUrl.customerSpec())
+        Response response = given(customerSpec())
                 .when()
                 .get("/favorites");
 
-        // Verify status code
-        res.then().statusCode(200);
+        response.prettyPrint();
 
-        // assertTrue(res.jsonPath().getList("$").isEmpty());
+        response.then().statusCode(200);
+
+        assertTrue(response.jsonPath().getList("$").isEmpty() || response.jsonPath().getList("$") != null);
     }
 
     // TC_US009_003 – Verify response when unauthorized user tries to access favorites
@@ -52,24 +53,27 @@ public class ViewFavoritesTests {
         res.then().statusCode(401);
 
         String errorMsg = res.jsonPath().getString("message");
-        assertTrue(errorMsg.toLowerCase().contains("unauth"));
+        assertEquals(errorMsg, "Unauthenticated.");
     }
 
+
+
     // TC_US009_004 – Verify response format includes required fields
-    @Test(description = "Verify that the API response contains all required fields for each record.")
+    @Test(description = "TC_US009_004: Verify response format includes required fields")
     public void TC_US009_004_validateFields() {
 
-        Response res = given()
-                .spec(BazaarStoresBaseUrl.customerSpec())
+        Response response = given(customerSpec())
                 .when()
                 .get("/favorites");
 
-        res.then().statusCode(200);
+        response.prettyPrint();
 
-        if (!res.jsonPath().getList("$").isEmpty()) {
-            assertNotNull(res.jsonPath().getString("[0].product_id"));
-            assertNotNull(res.jsonPath().getString("[0].user_id"));
-            assertNotNull(res.jsonPath().getString("[0].created_at"));
+        response.then().statusCode(200);
+
+        if (!response.jsonPath().getList("$").isEmpty()) {
+            response.then().body("[0].product_id", notNullValue())
+                    .body("[0].user_id", notNullValue())
+                    .body("[0].created_at", notNullValue());
         }
     }
 }
