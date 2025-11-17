@@ -1,4 +1,4 @@
-package Favorites_crud;
+package tests.Favorites_crud;
 
 public class DeleteFavoriteTests {
 }

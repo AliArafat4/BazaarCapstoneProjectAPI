@@ -1,4 +1,4 @@
-package Favorites_crud;
+package tests.Favorites_crud;
 
 import base_url.BazaarStoresBaseUrl;
 import io.restassured.response.Response;
