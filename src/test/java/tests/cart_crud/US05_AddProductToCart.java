@@ -11,7 +11,7 @@ import java.io.IOException;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
-public class C01_AddProductToCart extends BazaarStoresBaseUrl {
+public class US05_AddProductToCart extends BazaarStoresBaseUrl {
 
     @Test
     public void addProductToCartTest(){
@@ -91,7 +91,7 @@ public class C01_AddProductToCart extends BazaarStoresBaseUrl {
         //Do assertion
         response
                 .then()
-                .statusCode(401)
+                .statusCode(200)
                 .body(
                         "success", equalTo(true),
                         "message", equalTo("Product added to cart successfully"),
