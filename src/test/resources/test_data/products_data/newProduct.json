@@ -2,7 +2,7 @@
   "name": "New Sample Book",
   "price": 10,
   "stock": 10,
-  "sku": "00001",
+  "sku": "0000000001",
   "category_id": 2,
   "manufacturer": "Manufacturer",
   "image_url": "",

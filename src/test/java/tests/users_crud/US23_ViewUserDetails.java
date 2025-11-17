@@ -8,9 +8,10 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import utilities.ObjectMapperUtils;
 
-import java.io.IOException;
 import java.util.regex.Pattern;
 import static io.restassured.RestAssured.given;
+
+import static org.hamcrest.Matchers.*;
 
 public class US23_ViewUserDetails extends BazaarStoresBaseUrl {
 
@@ -21,8 +22,8 @@ public class US23_ViewUserDetails extends BazaarStoresBaseUrl {
         spec = adminSpec();
     }
 
-    @Test
-    public void VerifySuccessfulRetrieveOfSpecificUser() {
+    @Test(priority = 0)
+    public void RetrieveUserSuccessfully() {
 
         // Load id from JSON file
         JsonNode payload = ObjectMapperUtils.getJsonNode("/users_data/userID");
@@ -65,38 +66,21 @@ public class US23_ViewUserDetails extends BazaarStoresBaseUrl {
     }
 
     @Test
-    public void VerifyFailGetUserByInvalidId() {
+    public void RetrieveUserFailure() {
 
         int invalidId = 9999999;
 
         Response response = given(spec).get("/users/" + invalidId);
         // response.prettyPrint();
 
+
         response.then()
                 .statusCode(404)
-                .contentType("application/json");
+                .contentType("application/json")
+                .body("error", notNullValue())
+                .body("error", equalTo("User not found"));
 
-        JsonNode json = response.as(JsonNode.class);
 
-        // strict check: body MUST be {"error":"User not found"}
-        assert json.toString().equals("{\"error\":\"User not found\"}");
-    }
-
-    public void setUserIDInJsonFile() {
-
-        Response res = given(spec).get("/users");
-
-        try {
-            // pick the first user's ID and store it in the file
-            ObjectMapperUtils.writeJsonToFiles(
-                    "users_data/userID",
-                    res,
-                    "[0].id",
-                    "id"
-            );
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }
 

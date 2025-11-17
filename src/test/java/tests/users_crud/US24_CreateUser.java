@@ -20,7 +20,8 @@ public class US24_CreateUser extends BazaarStoresBaseUrl{
     @Test
     public void createUserSuccessfully() {
 
-        JsonNode payload = ObjectMapperUtils.getJsonNode("users_data/newUserData");
+        JsonNode payload = ObjectMapperUtils.getJsonNode("users_data/CreateUserData")
+                .get("validData");
 
         String newName = "Name_" + new Random().nextInt(100000);
         String newEmail = "user_" + new Random().nextInt(100000) + "@test.com";
@@ -33,8 +34,6 @@ public class US24_CreateUser extends BazaarStoresBaseUrl{
                 .contentType("application/json")
                 .body(payload.toString())
                 .post("/register");
-
-        response.then().statusCode(201);
 
 
         response
@@ -56,7 +55,8 @@ public class US24_CreateUser extends BazaarStoresBaseUrl{
     @Test
     public void createMissingName() {
 
-        JsonNode payload = ObjectMapperUtils.getJsonNode("users_data/missingName");
+        JsonNode payload = ObjectMapperUtils.getJsonNode("users_data/CreateUserData")
+                .get("missingName");
 
 
         String newEmail = "user_" + new Random().nextInt(100000) + "@test.com";
@@ -85,7 +85,8 @@ public class US24_CreateUser extends BazaarStoresBaseUrl{
     @Test
     public void createMissingEmail() {
 
-        JsonNode payload = ObjectMapperUtils.getJsonNode("users_data/missingEmail");
+        JsonNode payload = ObjectMapperUtils.getJsonNode("users_data/CreateUserData")
+                .get("missingEmail");
 
 
         String newName = "Name_" + new Random().nextInt(100000);
@@ -117,7 +118,8 @@ public class US24_CreateUser extends BazaarStoresBaseUrl{
     @Test
     public void createMissingPassword() {
 
-        JsonNode payload = ObjectMapperUtils.getJsonNode("users_data/missingPassword");
+        JsonNode payload = ObjectMapperUtils.getJsonNode("users_data/CreateUserData")
+                .get("missingPassword");
 
         String newName = "Name_" + new Random().nextInt(100000);
         String newEmail = "user_" + new Random().nextInt(100000) + "@test.com";
@@ -147,7 +149,9 @@ public class US24_CreateUser extends BazaarStoresBaseUrl{
     @Test
     public void createMissingPasswordConfirm() {
 
-        JsonNode payload = ObjectMapperUtils.getJsonNode("users_data/missingPasswordConfirm");
+        JsonNode payload = ObjectMapperUtils.getJsonNode("users_data/CreateUserData")
+                .get("missingPasswordConfirm");
+
 
         String newName = "Name_" + new Random().nextInt(100000);
         String newEmail = "user_" + new Random().nextInt(100000) + "@test.com";
@@ -178,7 +182,8 @@ public class US24_CreateUser extends BazaarStoresBaseUrl{
     @Test
     public void createMismatchPassword() {
 
-        JsonNode payload = ObjectMapperUtils.getJsonNode("users_data/mismatchPassword");
+        JsonNode payload = ObjectMapperUtils.getJsonNode("users_data/CreateUserData")
+                .get("passwordMismatch");
 
         String newName = "Name_" + new Random().nextInt(100000);
         String newEmail = "user_" + new Random().nextInt(100000) + "@test.com";
@@ -210,7 +215,8 @@ public class US24_CreateUser extends BazaarStoresBaseUrl{
     @Test
     public void createInvalidEmail() {
 
-        JsonNode payload = ObjectMapperUtils.getJsonNode("users_data/invalidEmail");
+        JsonNode payload = ObjectMapperUtils.getJsonNode("users_data/CreateUserData")
+                .get("invalidEmail");
 
         String newName = "Name_" + new Random().nextInt(100000);
         String newEmail = "user_" + new Random().nextInt(100000) + "test.com";
@@ -241,7 +247,8 @@ public class US24_CreateUser extends BazaarStoresBaseUrl{
     @Test
     public void createDuplicateEmail() {
 
-        JsonNode payload = ObjectMapperUtils.getJsonNode("users_data/duplicateEmail");
+        JsonNode payload = ObjectMapperUtils.getJsonNode("users_data/CreateUserData")
+                .get("duplicateEmail");
 
         String newName = "Name_" + new Random().nextInt(100000);
 
@@ -273,7 +280,8 @@ public class US24_CreateUser extends BazaarStoresBaseUrl{
     @Test
     public void createShortPassword() {
 
-        JsonNode payload = ObjectMapperUtils.getJsonNode("users_data/shortPassword");
+        JsonNode payload = ObjectMapperUtils.getJsonNode("users_data/CreateUserData")
+                .get("shortPassword");
 
         String newName = "Name_" + new Random().nextInt(100000);
         String newEmail = "user_" + new Random().nextInt(100000) + "test.com";
