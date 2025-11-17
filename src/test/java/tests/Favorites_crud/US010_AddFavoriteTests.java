@@ -1,31 +1,25 @@
 package tests.Favorites_crud;
 
 import base_url.BazaarStoresBaseUrl;
+import com.fasterxml.jackson.databind.JsonNode;
 import io.restassured.response.Response;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import utilities.ObjectMapperUtils;
+
 
 import static io.restassured.RestAssured.given;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class US09_AddFavoriteTests {
+public class US010_AddFavoriteTests extends BazaarStoresBaseUrl {
 
-    int productId = 211;
-
-    @BeforeMethod
-    public void cleanFavoriteBeforeAdd() {
-        given()
-                .spec(BazaarStoresBaseUrl.customerSpec())
-                .pathParam("product_id", productId)
-                .delete("/favorites/delete/{product_id}");
-    }
 
     @Test
     public void TC_US010_001_addProductToFavorites_success() {
+        JsonNode payload = ObjectMapperUtils.getJsonNode("favorites_data/add_favorite");
         Response res = given()
-                .spec(BazaarStoresBaseUrl.customerSpec())
-                .body("{\"product_id\": " + productId + "}")
+                .spec(customerSpec())
+                .body(payload)
                 .post("/favorites/create")
                 .then().log().body()
                 .extract().response();
@@ -34,16 +28,14 @@ public class US09_AddFavoriteTests {
         assertEquals(res.jsonPath().getString("success"), "Product added favorites successfully!");
     }
 
-
     @Test
     public void TC_US010_002_addProductAlreadyInFavorites() {
+        JsonNode payload = ObjectMapperUtils.getJsonNode("favorites_data/add_favorite");
         Response res = given()
-                .spec(BazaarStoresBaseUrl.customerSpec())
-                .body("{\"product_id\": " + productId + "}")
-                .when()
+                .spec(customerSpec())
+                .body(payload)
                 .post("/favorites/create")
-                .then()
-                .log().body()
+                .then().log().body()
                 .extract().response();
 
         assertEquals(res.getStatusCode(), 400);
@@ -52,13 +44,12 @@ public class US09_AddFavoriteTests {
 
     @Test
     public void TC_US010_003_missingProductId() {
+        JsonNode payload = ObjectMapperUtils.getJsonNode("favorites_data/add_favorite_missing");
         Response res = given()
-                .spec(BazaarStoresBaseUrl.customerSpec())
-                .body("{}")
-                .when()
+                .spec(customerSpec())
+                .body(payload)
                 .post("/favorites/create")
-                .then()
-                .log().body()
+                .then().log().body()
                 .extract().response();
 
         assertEquals(res.getStatusCode(), 500);
@@ -67,24 +58,20 @@ public class US09_AddFavoriteTests {
 
     @Test
     public void TC_US010_004_noToken() {
+        JsonNode payload = ObjectMapperUtils.getJsonNode("favorites_data/add_favorite");
         Response res = given()
-                .spec(BazaarStoresBaseUrl.spec())
-                .body("{\"product_id\": " + productId + "}")
-                .when()
+                .spec(spec()) // no customer token
+                .body(payload)
                 .post("/favorites/create")
-                .then()
-                .extract().response();
+                .then().extract().response();
 
         int status = res.getStatusCode();
         assertTrue(status == 401 || status == 403, "Unexpected status code: " + status);
 
-
         String message = res.jsonPath().getString("message");
         System.out.println("Response message: " + message);
 
-        // Optional: assertion
         String msgLower = message.toLowerCase();
         assertTrue(msgLower.contains("unauth") || msgLower.contains("auth"), "Unexpected message: " + message);
     }
-
 }

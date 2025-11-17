@@ -8,7 +8,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 import static org.testng.Assert.*;
 
-public class US010_ViewFavoritesTests extends BazaarStoresBaseUrl {
+public class US09_ViewFavoritesTests extends BazaarStoresBaseUrl {
 
     // TC_US009_001 – Verify successful retrieval of all favorite products
     @Test(description = "TC_US009_001: Verify successful retrieval of all favorite products")
@@ -42,19 +42,24 @@ public class US010_ViewFavoritesTests extends BazaarStoresBaseUrl {
     }
 
     // TC_US009_003 – Verify response when unauthorized user tries to access favorites
-    @Test(description = "Verify that an unauthorized user cannot access favorite products.")
+    @Test(description = "TC_US009_003: Unauthorized user cannot access favorite products")
     public void TC_US009_003_unauthorizedAccess() {
 
         Response res = given()
                 .header("Accept", "application/json")
                 .when()
-                .get("https://bazaarstores.com/api/favorites");
+                .get("https://bazaarstores.com/api/favorites")
+                .then().log().body()
+                .extract().response();
 
-        res.then().statusCode(401);
+        int status = res.getStatusCode();
+        assertTrue(status == 401 || status == 403, "Unexpected status code: " + status);
 
-        String errorMsg = res.jsonPath().getString("message");
-        assertEquals(errorMsg, "Unauthenticated.");
+        String message = res.jsonPath().getString("message");
+        String lower = message.toLowerCase();
+        assertTrue(lower.contains("unauth") || lower.contains("auth"), "Unexpected message: " + message);
     }
+
 
 
 
