@@ -71,5 +71,20 @@ public class ObjectMapperUtils {
         mapper.writerWithDefaultPrettyPrinter().writeValue(new File("src/test/resources/test_data/" + fileName + ".json"), content);
     }
 
+    public static void saveUserId(int id) {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode node = mapper.createObjectNode();
+        node.put("id", id);
+
+        try {
+            mapper.writerWithDefaultPrettyPrinter()
+                    .writeValue(new File("src/test/resources/test_data/users_data/userID.json"), node);
+            System.out.println("User ID saved: " + id);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to save user ID", e);
+        }
+    }
+
+
 
 }
