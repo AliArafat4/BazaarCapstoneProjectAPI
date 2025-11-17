@@ -6,20 +6,18 @@ import org.testng.annotations.Test;
 import static base_url.BazaarStoresBaseUrl.customerSpec;
 import static io.restassured.RestAssured.given;
 
-public class C02_GetProductsFromCart {
-
+public class US08_ClearCart {
 
     @Test
-    public void getCartItemsTest(){
+    public void clearCartTest(){
 
         //send request
-        Response response = given(customerSpec()).get("/cart");
+        Response response = given(customerSpec()).post("/cart/clear");
         response.prettyPrint();
 
         //do assertion
         response
                 .then()
-                .statusCode(200);
-
+                .statusCode(405);
     }
 }

@@ -71,7 +71,7 @@ public class BazaarStoresBaseUrl {
                 .build();
     }
 
-    static String getCustomerToken() {
+    public static String getCustomerToken() {
         String credentials = """
                 {
                     "email" : "customer@sda.com",
