@@ -1,0 +1,36 @@
+{
+
+  "validUpdate" : {
+    "name": "Default Name",
+    "email": "default@test.com",
+    "password": "P@ssw0rd!",
+    "password_confirmation": "P@ssw0rd!"
+
+  },
+  "invalidEmail" :
+  {
+    "name": "Default Name",
+    "email": "invalidsda.com",
+    "password": "P@ssw0rd!",
+    "password_confirmation": "P@ssw0rd!"
+
+  },
+
+  "duplicatedEmail" :
+  {
+    "name": "Default Name",
+    "email": "customer@sda.com",
+    "password": "P@ssw0rd!",
+    "password_confirmation": "P@ssw0rd!"
+
+  },
+
+  "mismatchedPassword" :
+  {
+    "name": "Default Name",
+    "email": "default@test.com",
+    "password": "P@ssw0rd!1234",
+    "password_confirmation": "P@ssw0rd!"
+
+  }
+}
