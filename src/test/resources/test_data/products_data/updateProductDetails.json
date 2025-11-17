@@ -1,0 +1,11 @@
+{
+  "name": "NEW New Sample Book",
+  "price": 100,
+  "stock": 100,
+  "sku": "0000000002",
+  "category_id": 1,
+  "manufacturer": "NEW Manufacturer",
+  "image_url": "",
+  "discount": 50,
+  "description": "NEW description"
+}

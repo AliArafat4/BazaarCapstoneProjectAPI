@@ -32,8 +32,7 @@ public class US014CreateNewProduct extends BazaarStoresBaseUrl {
                 .body(payload)
                 .post("/products/create");
         response.prettyPrint();
-        Response res = response;
-        res.then()
+        response.then()
                 .statusCode(201)
                 .body("product.name", equalTo(payload.get("name").textValue()),
                         "product.sku", equalTo(payload.get("sku").textValue()),
@@ -41,10 +40,10 @@ public class US014CreateNewProduct extends BazaarStoresBaseUrl {
 
                 );
 
-        deleteProductByID(payload, res.getBody().jsonPath().getInt("product.id"));
+        deleteProductByID(response);
     }
 
-    @Test @Description("Known Issue") @Ignore
+    @Test @Description("Known Issue") //@Ignore
     public void createNewProductWithRequiredFields()
     {
         JsonNode payload = ObjectMapperUtils.getJsonNode("/products_data/newProduct");
@@ -52,23 +51,21 @@ public class US014CreateNewProduct extends BazaarStoresBaseUrl {
         ObjectNode obj = (ObjectNode) payload;
         obj.remove("manufacturer");
         obj.remove("image_url");
-        obj.remove("discount");
+//        obj.remove("discount");
         obj.remove("description");
 
         Response response = given(spec)
                 .body(payload)
                 .post("/products/create");
         response.prettyPrint();
-        Response res = response;
-        res.then()
+        response.then()
                 .statusCode(201)
                 .body("product.name", equalTo(payload.get("name").textValue()),
                         "product.sku", equalTo(payload.get("sku").textValue()),
                         "product.category_id", equalTo(payload.get("category_id").intValue())
 
                 );
-
-        deleteProductByID(payload, res.getBody().jsonPath().getInt("product.id"));
+        deleteProductByID(response);
     }
 
     @Test
@@ -106,13 +103,12 @@ public class US014CreateNewProduct extends BazaarStoresBaseUrl {
                 .body(payload)
                 .post("/products/create");
         response.prettyPrint();
-        Response res = response;
-        res.then()
+
+        response.then()
                 .statusCode(422)
                 .body("message", is("The " +  field + " field is required."));
     }
 
-    //todo: add to postman and jira
     @Test
     public void createNewProductWithTakenSku()
     {
@@ -133,9 +129,69 @@ public class US014CreateNewProduct extends BazaarStoresBaseUrl {
                 .body("message", is("The sku has already been taken."));
     }
 
-    private void deleteProductByID(JsonNode payload, int id) {
-        given(spec)
+    @Test
+    public void createNewProductWithNegativePrice()
+    {
+        JsonNode payload = ObjectMapperUtils.getJsonNode("/products_data/newProduct");
+
+        ObjectNode obj = (ObjectNode) payload;
+        obj.put("price", -10);
+
+        Response response = given(spec)
                 .body(payload)
-                .delete("/products/create" + id);
+                .post("/products/create");
+        response.prettyPrint();
+
+        response.then()
+                .statusCode(201);
+
+            deleteProductByID(response);
+//                .body("message", is("The sku has already been taken."));
+    }
+
+    @Test
+    public void createNewProductWithNegativeStock()
+    {
+        JsonNode payload = ObjectMapperUtils.getJsonNode("/products_data/newProduct");
+
+        ObjectNode obj = (ObjectNode) payload;
+        obj.put("stock", -10);
+
+        Response response = given(spec)
+                .body(payload)
+                .post("/products/create");
+        response.prettyPrint();
+
+        response.then()
+                .statusCode(201);
+
+            deleteProductByID(response);
+//                .body("message", is("The sku has already been taken."));
+    }
+
+    @Test
+    public void createNewProductWithNegativeDiscount()
+    {
+        JsonNode payload = ObjectMapperUtils.getJsonNode("/products_data/newProduct");
+
+        ObjectNode obj = (ObjectNode) payload;
+        obj.put("discount", -10);
+
+        Response response = given(spec)
+                .body(payload)
+                .post("/products/create");
+        response.prettyPrint();
+
+        response.then()
+                .statusCode(201);
+
+            deleteProductByID(response);
+//                .body("message", is("The sku has already been taken."));
+    }
+
+    private void deleteProductByID(Response res) {
+        //delete products after creation to ensure repeatability of tests
+       Response response = given(spec).delete("/products/" + res.getBody().jsonPath().getInt("product.id"));
+        response.then().statusCode(200);
     }
 }
