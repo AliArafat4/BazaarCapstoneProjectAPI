@@ -1,0 +1,30 @@
+{
+  "validLogin": {
+    "email": "customer@sda.com",
+    "password": "Password.12345"
+  },
+
+  "wrongEmail": {
+    "email": "wrong123@sda.com",
+    "password": "Password.12345"
+  },
+
+  "wrongPassword": {
+    "email": "customer@sda.com",
+    "password": "WrongPass123"
+  },
+
+  "invalidEmailFormat": {
+    "email": "notanemail",
+    "password": "Password.12345"
+  },
+
+  "missingField": {
+    "email": "",
+    "password": ""
+  },
+  "missingEmail": {
+    "password": "Password.12345"
+  }
+
+}
