@@ -71,7 +71,7 @@ public class BazaarStoresBaseUrl {
                 .build();
     }
 
-    static String getCustomerToken() {
+    public static String getCustomerToken() {
         String credentials = """
                 {
                     "email" : "customer@sda.com",
@@ -85,6 +85,14 @@ public class BazaarStoresBaseUrl {
                 .post(baseUrl + "/login")
                 .jsonPath()
                 .getString("authorisation.token");
+    }
+
+    public static RequestSpecification spec() {
+        return new RequestSpecBuilder()
+                .setBaseUri(baseUrl)
+                .addHeader("Accept", "application/json")
+                .setContentType(ContentType.JSON)
+                .build();
     }
 
 }

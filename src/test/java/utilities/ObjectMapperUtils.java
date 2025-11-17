@@ -4,9 +4,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import io.restassured.response.Response;
 
 import java.io.File;
 import java.io.IOException;
+
+import static io.restassured.RestAssured.given;
 
 public class ObjectMapperUtils {
 
@@ -55,6 +58,33 @@ public class ObjectMapperUtils {
         ObjectNode objectNode = (ObjectNode) payload;
         objectNode.remove(fieldName);
     }
+
+    public static void writeJsonToFiles(String fileName, Response response, String JsonPath, String fieldName) throws IOException {
+        JsonNode jsonContent = ObjectMapperUtils.getJsonNode(fileName);
+        ObjectNode content = (ObjectNode) jsonContent;
+        Object obj = response.jsonPath().get(JsonPath);
+
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode fieldNode = mapper.valueToTree(obj);
+        content.set(fieldName, fieldNode);
+
+        mapper.writerWithDefaultPrettyPrinter().writeValue(new File("src/test/resources/test_data/" + fileName + ".json"), content);
+    }
+
+    public static void saveUserId(int id) {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode node = mapper.createObjectNode();
+        node.put("id", id);
+
+        try {
+            mapper.writerWithDefaultPrettyPrinter()
+                    .writeValue(new File("src/test/resources/test_data/users_data/userID.json"), node);
+            System.out.println("User ID saved: " + id);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to save user ID", e);
+        }
+    }
+
 
 
 }

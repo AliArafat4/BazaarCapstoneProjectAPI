@@ -1,0 +1,3 @@
+{
+  "expectedFields": ["id", "name", "email", "role"]
+}
