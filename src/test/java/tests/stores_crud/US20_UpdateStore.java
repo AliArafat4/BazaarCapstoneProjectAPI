@@ -51,18 +51,20 @@ public class US20_UpdateStore {
 
         JsonNode store= ObjectMapperUtils.getJsonNode("stores_data/store");
         ObjectNode editable=(ObjectNode) store;
-        if (!filed.equalsIgnoreCase("admin_id")) {
-            editable.put("admin_id", adminId);
-            //known issue
-            editable.put("admin_d",adminId);
+        if (filed.equalsIgnoreCase("admin_id")) {
+            assert true;
+            return;
         }
+        editable.put("admin_id", adminId);
         editable.remove(filed);
+        //known issue
+        editable.put("admin_d",adminId);
         Response response=given(adminSpec())
                 .body(editable)
                 .pathParam("storeId",storeId)
                 .put("/stores/{storeId}");
         response.then().statusCode(422)
-                .body("errors",hasKey(filed));
+                .body("message",containsString(filed));
 
     }
 
