@@ -2,19 +2,101 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="All Test Suite">
     <test verbose="2" preserve-order="true"
-          name="C:/Users/alihm/IdeaProjects/BazaarApiCapstoneProject/src/test/java/tests/products_crud/US012BrowsAllProducts.java">
+          name="C:/Users/alihm/IdeaProjects/BazaarApiCapstoneProject/src/test/java/tests">
         <classes>
+            <class name="tests.Favorites_crud.US010_AddFavoriteTests">
+                <methods>
+                    <include name="TC_US010_001_addProductToFavorites_success"/>
+                    <include name="TC_US010_002_addProductAlreadyInFavorites"/>
+                    <include name="TC_US010_003_missingProductId"/>
+                    <include name="TC_US010_004_noToken"/>
+                </methods>
+            </class>
+            <class name="tests.Favorites_crud.US011_DeleteFavoriteTests">
+                <methods>
+                    <include name="TC_US011_001_deleteFavorite_success"/>
+                    <include name="TC_US011_002_deleteNonExistingFavorite"/>
+                    <include name="TC_US011_003_deleteFavorite_serverError"/>
+                    <include name="TC_US011_004_deleteFavorite_noToken"/>
+                </methods>
+            </class>
+            <class name="tests.Favorites_crud.US09_ViewFavoritesTests">
+                <methods>
+                    <include name="TC_US009_001_getAllFavorites_success"/>
+                    <include name="TC_US009_002_getFavorites_empty"/>
+                    <include name="TC_US009_003_unauthorizedAccess"/>
+                    <include name="TC_US009_004_validateFields"/>
+                </methods>
+            </class>
+            <class name="tests.auth.LoginRolesTest">
+                <methods>
+                    <include name="customerLoginTest"/>
+                    <include name="storeManagerLoginTest"/>
+                    <include name="adminLoginTest"/>
+                </methods>
+            </class>
+            <class name="tests.auth.US001_RegisterUserTest">
+                <methods>
+                    <include name="registerUserSuccessfully"/>
+                    <include name="registerWithExistingEmail_Fail"/>
+                    <include name="registerMissingField_Fail"/>
+                    <include name="registerInvalidEmailFormat_Fail"/>
+                </methods>
+            </class>
+            <class name="tests.auth.US002_LoginUserTest">
+                <methods>
+                    <include name="loginUserSuccessfully"/>
+                    <include name="loginWrongEmail_Fail"/>
+                    <include name="loginWrongPassword_Fail"/>
+                    <include name="loginInvalidEmailFormat_Fail"/>
+                    <include name="loginMissingField_Fail"/>
+                </methods>
+            </class>
+            <class name="tests.auth.US003_LogoutUserTest">
+                <methods>
+                    <include name="logoutSuccessfully"/>
+                    <include name="logoutWithoutToken_Fail"/>
+                    <include name="logoutWithInvalidToken_Fail"/>
+                </methods>
+            </class>
+            <class name="tests.auth.US004_GetUserProfileTest">
+                <methods>
+                    <include name="getProfileSuccessfully"/>
+                    <include name="getProfileWithoutToken_Fail"/>
+                    <include name="getProfileWithInvalidToken_Fail"/>
+                </methods>
+            </class>
+            <class name="tests.cart_crud.US05_AddProductToCart">
+                <methods>
+                    <include name="addProductToCartTest"/>
+                    <include name="addSameProductMultipleTimesTest"/>
+                    <include name="addProductUsingDefaultQuantity"/>
+                    <include name="addInvalidProduct"/>
+                </methods>
+            </class>
+            <class name="tests.cart_crud.US06_GetProductsFromCart">
+                <methods>
+                    <include name="getCartItemsTest"/>
+                </methods>
+            </class>
+            <class name="tests.cart_crud.US07_RemoveProductFromCart">
+                <methods>
+                    <include name="removeProductFromCartTest"/>
+                    <include name="removeInvalidProductFromCartTest"/>
+                    <include name="clearCartAfterTests"/>
+                </methods>
+            </class>
+            <class name="tests.cart_crud.US08_ClearCart">
+                <methods>
+                    <include name="clearCartTest"/>
+                </methods>
+            </class>
             <class name="tests.products_crud.US012BrowsAllProducts">
                 <methods>
                     <include name="VerifySuccessfulRetrieveOfAllProducts"/>
                     <include name="VerifyFailGetProductsByInvalidToken"/>
                 </methods>
             </class>
-        </classes>
-    </test>
-    <test verbose="2" preserve-order="true"
-          name="C:/Users/alihm/IdeaProjects/BazaarApiCapstoneProject/src/test/java/tests/products_crud/US013ViewProductDetails.java">
-        <classes>
             <class name="tests.products_crud.US013ViewProductDetails">
                 <methods>
                     <include name="VerifySuccessfulRetrieveOfSpecificProduct"/>
@@ -23,11 +105,6 @@
                     <include name="VerifyFailGetProductById_InvalidToken"/>
                 </methods>
             </class>
-        </classes>
-    </test>
-    <test verbose="2" preserve-order="true"
-          name="C:/Users/alihm/IdeaProjects/BazaarApiCapstoneProject/src/test/java/tests/products_crud/US014CreateNewProduct.java">
-        <classes>
             <class name="tests.products_crud.US014CreateNewProduct">
                 <methods>
                     <include name="createNewProductWithAllDetails"/>
@@ -40,11 +117,6 @@
                     <include name="createNewProductWithNegativeDiscount"/>
                 </methods>
             </class>
-        </classes>
-    </test>
-    <test verbose="2" preserve-order="true"
-          name="C:/Users/alihm/IdeaProjects/BazaarApiCapstoneProject/src/test/java/tests/products_crud/US015UpdateExistingProduct.java">
-        <classes>
             <class name="tests.products_crud.US015UpdateExistingProduct">
                 <methods>
                     <include name="VerifySuccessfulUpdateExistingProduct"/>
@@ -55,15 +127,91 @@
                     <include name="VerifyFailUpdatingNonExistingProduct"/>
                 </methods>
             </class>
-        </classes>
-    </test>
-    <test verbose="2" preserve-order="true"
-          name="C:/Users/alihm/IdeaProjects/BazaarApiCapstoneProject/src/test/java/tests/products_crud/US016DeleteProduct.java">
-        <classes>
             <class name="tests.products_crud.US016DeleteProduct">
                 <methods>
                     <include name="deleteProduct"/>
                     <include name="failDeleteProduct"/>
+                </methods>
+            </class>
+            <class name="tests.stores_crud.US17_BrowseAllStores">
+                <methods>
+                    <include name="getAllStores01"/>
+                    <include name="getStoresInvalidToken02"/>
+                    <include name="getStoresWithOutToken03"/>
+                    <include name="getStoresExpiredToken04"/>
+                </methods>
+            </class>
+            <class name="tests.stores_crud.US18_ViewStoreDetails">
+                <methods>
+                    <include name="viewStoreDetails01"/>
+                    <include name="viewStoreDetailsInvalidID02"/>
+                    <include name="viewStoreDetailsWithoutToken03"/>
+                </methods>
+            </class>
+            <class name="tests.stores_crud.US19_CreateNewStore">
+                <methods>
+                    <include name="createNewStore"/>
+                    <include name="createStoreWithMissingFiled"/>
+                    <include name="createStoreInvalidData"/>
+                    <include name="viewStoreDetailsWithoutToken"/>
+                    <include name="viewStoreDetailsUnauthorizedUser"/>
+                </methods>
+            </class>
+            <class name="tests.stores_crud.US20_UpdateStore">
+                <methods>
+                    <include name="updateStore"/>
+                    <include name="updateStoreWithMissingFiled"/>
+                    <include name="updateStoreInvalidData"/>
+                    <include name="updateStoreWithoutToken"/>
+                    <include name="updateStoreUnauthorizedUser"/>
+                </methods>
+            </class>
+            <class name="tests.stores_crud.US21_DeleteStore">
+                <methods>
+                    <include name="deleteStore"/>
+                    <include name="deleteStoreWithoutToken"/>
+                    <include name="deleteStoreUnauthorizedUser"/>
+                </methods>
+            </class>
+            <class name="tests.users_crud.US22_GetAllUsers">
+                <methods>
+                    <include name="US22_TC01_getAllUsersSuccess"/>
+                    <include name="US22_TC02_missingToken"/>
+                    <include name="US22_TC03_invalidToken"/>
+                </methods>
+            </class>
+            <class name="tests.users_crud.US23_ViewUserDetails">
+                <methods>
+                    <include name="RetrieveUserSuccessfully"/>
+                    <include name="RetrieveUserFailure"/>
+                </methods>
+            </class>
+            <class name="tests.users_crud.US24_CreateUser">
+                <methods>
+                    <include name="createUserSuccessfully"/>
+                    <include name="createMissingName"/>
+                    <include name="createMissingEmail"/>
+                    <include name="createMissingPassword"/>
+                    <include name="createMissingPasswordConfirm"/>
+                    <include name="createMismatchPassword"/>
+                    <include name="createInvalidEmail"/>
+                    <include name="createDuplicateEmail"/>
+                    <include name="createShortPassword"/>
+                </methods>
+            </class>
+            <class name="tests.users_crud.US25_UpdateUser">
+                <methods>
+                    <include name="updateUserSuccessfully"/>
+                    <include name="updateInvalidId"/>
+                    <include name="updateInvalidEmail"/>
+                    <include name="updateDuplicatedEmail"/>
+                    <include name="updateMismatchedPassword"/>
+                </methods>
+            </class>
+            <class name="tests.users_crud.US26_DeleteUser">
+                <methods>
+                    <include name="deleteUserSuccessfully"/>
+                    <include name="deleteUserFailure"/>
                 </methods>
             </class>
         </classes>
