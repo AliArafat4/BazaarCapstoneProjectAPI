@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="All Test Suite">
+<suite name="Capstone Project Suite">
     <test verbose="2" preserve-order="true"
-          name="C:/Users/alihm/IdeaProjects/BazaarApiCapstoneProject/src/test/java/tests">
+          name="Capstone Project Tests">
         <classes>
             <class name="tests.Favorites_crud.US010_AddFavoriteTests">
                 <methods>
