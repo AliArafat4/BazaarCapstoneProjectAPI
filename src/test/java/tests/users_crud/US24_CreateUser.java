@@ -247,16 +247,43 @@ public class US24_CreateUser extends BazaarStoresBaseUrl{
     @Test
     public void createDuplicateEmail() {
 
+
+        //create a user successfully
         JsonNode payload = ObjectMapperUtils.getJsonNode("users_data/CreateUserData")
-                .get("duplicateEmail");
+                .get("validData");
 
         String newName = "Name_" + new Random().nextInt(100000);
+        String newEmail = "user_" + new Random().nextInt(100000) + "@test.com";
+
+        ObjectMapperUtils.updateJsonNode(payload, "name", newName);
+        ObjectMapperUtils.updateJsonNode(payload, "email", newEmail);
+
+        Response response = given()
+                .spec(adminSpec())
+                .contentType("application/json")
+                .body(payload.toString())
+                .post("/register");
+
+
+
+        //save the email to be used again
+        String userEmail = response.jsonPath().getString("user.email");
+
+
+
+        // create a user with duplicated email
+
+         payload = ObjectMapperUtils.getJsonNode("users_data/CreateUserData")
+                .get("duplicateEmail");
+
+         newName = "Name_" + new Random().nextInt(100000);
 
 
         ObjectMapperUtils.updateJsonNode(payload, "name", newName);
+        ObjectMapperUtils.updateJsonNode(payload, "email", userEmail);
 
 
-        Response response = given()
+         response = given()
                 .spec(adminSpec())
                 .contentType("application/json")
                 .body(payload.toString())

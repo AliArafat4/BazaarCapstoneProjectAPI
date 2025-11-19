@@ -47,7 +47,7 @@
 
   "duplicateEmail" : {
     "name": "Default Name",
-    "email": "customer@sda.com",
+    "email": "duplicated@sda.com",
     "password": "P@ssw0rd!",
     "password_confirmation": "P@ssw0rd!"
   },
