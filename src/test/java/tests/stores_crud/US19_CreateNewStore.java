@@ -3,7 +3,6 @@ package tests.stores_crud;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.restassured.response.Response;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import utilities.ObjectMapperUtils;
@@ -16,11 +15,7 @@ import static tests.stores_crud.US17_BrowseAllStores.adminId;
 public class US19_CreateNewStore {
 
 
-    @BeforeClass
-    public void getAdminId(){
-        US17_BrowseAllStores browseAllStores=new US17_BrowseAllStores();
-        browseAllStores.getAllStores01();
-    }
+    public static String storeId;
 
     @Test
     public void createNewStore(){
@@ -35,6 +30,8 @@ public class US19_CreateNewStore {
                 .body("product.location",notNullValue())
                 .body("product.admin_id",notNullValue())
                 .body("product.description",notNullValue());
+
+        storeId = response.jsonPath().getString("product.id");
 
 
     }
