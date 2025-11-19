@@ -1,7 +1,6 @@
 package tests.stores_crud;
 
 import io.restassured.response.Response;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import static base_url.BazaarStoresBaseUrl.adminSpec;
@@ -12,11 +11,6 @@ import static tests.stores_crud.US17_BrowseAllStores.storeId;
 
 public class US18_ViewStoreDetails {
 
-    @BeforeClass
-    public void getStoreId(){
-        US17_BrowseAllStores browseAllStores=new US17_BrowseAllStores();
-        browseAllStores.getAllStores01();
-    }
 
     @Test
     public void viewStoreDetails01(){

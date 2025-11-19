@@ -1,21 +1,14 @@
 package tests.stores_crud;
 
 import io.restassured.response.Response;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import static base_url.BazaarStoresBaseUrl.*;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
-import static tests.stores_crud.US17_BrowseAllStores.storeId;
+import static tests.stores_crud.US19_CreateNewStore.storeId;
 
 public class US21_DeleteStore {
 
-
-    @BeforeClass
-    public void getStoreId(){
-        US17_BrowseAllStores browseAllStores=new US17_BrowseAllStores();
-        browseAllStores.getAllStores01();
-    }
 
     @Test
     public void deleteStore(){
