@@ -3,7 +3,6 @@ package tests.stores_crud;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.restassured.response.Response;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import utilities.ObjectMapperUtils;
@@ -12,16 +11,10 @@ import static base_url.BazaarStoresBaseUrl.*;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 import static tests.stores_crud.US17_BrowseAllStores.adminId;
-import static tests.stores_crud.US17_BrowseAllStores.storeId;
+import static tests.stores_crud.US19_CreateNewStore.storeId;
 
 public class US20_UpdateStore {
 
-
-    @BeforeClass
-    public void getStoreId(){
-        US17_BrowseAllStores browseAllStores=new US17_BrowseAllStores();
-        browseAllStores.getAllStores01();
-    }
 
     @Test
     public void updateStore(){
